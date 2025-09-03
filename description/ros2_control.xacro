@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Hardware interface for ros2 control manager -->
+    <!-- With below code ros2 control manager will know what hardware to control, specify which joint to control and which command and state -->
+    <ros2_control name="GazeboSystem" type="system">
+        <hardware>
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+        <joint name="left_wheel_joint"> <!-- joint which we want to control -->
+            <!-- ros2 interact with hardware with command and state, and doesn't care about actual hardware -->
+            <command_interface name="velocity">
+                <param name="min">-10</param>
+                <param name="max">10</param>
+            </command_interface>
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="right_wheel_joint"> <!-- joint which we want to control -->
+            <!-- ros2 interact with hardware with command and state, and doesn't care about actual hardware -->
+            <command_interface name="velocity">
+                <param name="min">-10</param>
+                <param name="max">10</param>
+            </command_interface>
+            <state_interface name="velocity" />
+            <state_interface name="position" />
+        </joint>
+    </ros2_control>
+
+    
+
+    <!-- With below Gazebo plugin code, Gazebo will know to use ros2_control to control robot -->
+    <gazebo>
+        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+        <!-- Gazebo has its own controller manager , when not using Gazebo, we'll need to run ros2 run controller_manager ros2_control_node -->
+        <!-- Gazebo control manager will get urdf from state publisher, so we have to only define yaml file path for param-->
+            <parameters>/home/virani/learn_ros_ws/src/my_bot_one/config/my_controllers.yaml</parameters>
+        </plugin>
+    </gazebo>
+</robot>
