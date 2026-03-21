@@ -1,3 +1,16 @@
+# launch_robot.launch.py
+
+# Launches the real robot (non-simulation) with ros2_control.
+# It does the following:
+#   1. Starts the Robot State Publisher (rsp.launch.py) with sim_time disabled
+#      and ros2_control enabled.
+#   2. Starts the ros2_control controller manager node (delayed by 3 seconds to
+#      allow the robot description to be published first).
+#   3. Spawns the differential drive controller (diff_cont) once the controller
+#      manager is running.
+#   4. Spawns the joint state broadcaster (joint_broad) once the controller
+#      manager is running.
+
 import os
 
 from ament_index_python.packages import get_package_share_directory

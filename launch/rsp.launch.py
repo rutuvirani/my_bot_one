@@ -1,3 +1,16 @@
+# rsp.launch.py (Robot State Publisher)
+#
+# Processes the robot URDF/XACRO description and starts the robot_state_publisher node.
+# It does the following:
+#   1. Processes robot.urdf.xacro with runtime arguments (use_ros2_control, sim_mode)
+#      using the xacro command to produce a complete URDF XML string.
+#   2. Starts the robot_state_publisher node with the processed robot description,
+#      which publishes TF transforms for all robot links based on joint states.
+#
+# Launch arguments:
+#   use_sim_time    -- true/false, enables Gazebo simulation clock (default: true)
+#   use_ros2_control -- true/false, enables ros2_control hardware interface (default: true)
+
 import os
 
 from ament_index_python.packages import get_package_share_directory

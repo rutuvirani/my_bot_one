@@ -1,3 +1,28 @@
+# launch_sim.launch.py
+#
+# This file is standalone script it don't need launch_robot.launch.py
+# Launches the full robot simulation stack in Gazebo with navigation.
+# It does the following:
+#   1. Starts the Robot State Publisher (rsp.launch.py) with sim_time enabled
+#      and ros2_control enabled.
+#   2. Launches Gazebo with a custom world (myworld.world) and spawns the robot.
+#   3. Starts the ros2_control controller manager (delayed 3s), then spawns
+#      the differential drive controller (diff_cont) and joint state broadcaster
+#      (joint_broad) after the robot entity is spawned.
+#   4. Optionally launches joystick or keyboard teleoperation (controlled by
+#      the 'teleop_type' argument: 'joystick', 'keyboard', or 'none').
+#   5. Starts SLAM Toolbox in localization mode (delayed 7s) for robot localization.
+#      AMCL and map server are available as alternatives (currently commented out).
+#   6. Launches the full Nav2 stack (BT Navigator, Planner, Controller, Smoother,
+#      Behavior Server, Velocity Smoother, Waypoint Follower) with a lifecycle
+#      manager (delayed to allow localization to initialize first).
+#
+# Launch arguments:
+#   teleop_type       -- 'joystick', 'keyboard', or 'none' (required)
+#   map_file          -- path to map yaml (default: recorded_map/test_map.yaml)
+#   use_sim_time      -- true/false (default: true)
+#   localization_type -- 'slam_toolbox' or 'amcl' (default: amcl)
+
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription

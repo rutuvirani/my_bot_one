@@ -1,3 +1,14 @@
+# joystick.launch.py
+#
+# Launches teleoperation nodes for controlling the robot.
+# It does the following:
+#   1. Reads joystick/teleop parameters from config/joystick.yaml.
+#   2. Launches a joystick teleop node (teleop_twist_joy) if teleop_type is 'joystick'.
+#   3. Launches a keyboard teleop node (teleop_twist_keyboard in an xterm window)
+#      if teleop_type is 'keyboard'.
+# Both controllers publish velocity commands to /diff_cont/cmd_vel_unstamped.
+# Note: the joy_node (raw joystick input) is currently commented out.
+
 from launch import LaunchDescription
 from launch_ros.actions import Node
 import os

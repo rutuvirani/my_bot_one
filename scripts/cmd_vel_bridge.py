@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+# cmd_vel_bridge.py
+#
+# A ROS2 node that bridges velocity commands to the differential drive controller.
+# It does the following:
+#   1. Subscribes to /cmd_vel_nav (from Nav2 navigation stack).
+#   2. Subscribes to /cmd_vel_smoothed (from the velocity smoother).
+#   3. Forwards any received Twist message from either topic directly to
+#      /diff_cont/cmd_vel_unstamped (the differential drive controller input).
+# This bridge is useful when remappings alone are insufficient to connect
+# the navigation stack output to the robot controller.
 
 import rclpy
 from rclpy.node import Node

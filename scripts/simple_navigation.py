@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+# simple_navigation.py
+#
+# A ROS2 node that sends a sequence of navigation goals to the Nav2 stack.
+# It does the following:
+#   1. Creates an action client for the 'navigate_to_pose' Nav2 action.
+#   2. Iterates through a predefined list of (x, y, yaw) goals, sending each
+#      one after the previous is completed (with a 2-second delay between goals).
+#   3. Converts yaw angles to quaternions for the PoseStamped messages.
+#   4. Logs feedback (distance remaining) and result (success/failure) for each goal.
+# Modify the 'goals' list in __init__ to set your own waypoints.
 
 import rclpy
 from rclpy.node import Node
